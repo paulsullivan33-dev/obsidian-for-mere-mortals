@@ -1,0 +1,5 @@
+$ python3 scripts/check_vault.py vault
+vault: vault
+notes: 9  links checked: 26
+all links resolve
+exit code: 0

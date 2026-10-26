@@ -1,0 +1,65 @@
+The commands behind the transcripts
+====================================
+
+File layer (run from obsidian-lab/):
+
+  python3 scripts/make_garden_plan.py
+      (run inside vault/; draws
+      Attachments/garden-plan.png)
+
+  find vault -type f | sort
+      -> t00-vault-tree.txt
+
+  python3 scripts/check_vault.py vault
+      -> t01-links-baseline.txt
+      (exit 0: 9 notes, 26 links,
+      all resolve)
+
+  cp -r vault /tmp-copy-rename
+  mv "/tmp-copy-rename/Tomatoes.md" \
+     "/tmp-copy-rename/Tomato Varieties.md"
+  python3 scripts/check_vault.py /tmp-copy-rename
+      -> t03-rename-breaks.txt
+      (exit 1: 6 broken — in the real
+      lab the copies lived in a
+      workspace scratch folder, not
+      /tmp; paths in the transcript
+      are the lab's own)
+
+  cp -r vault /tmp-copy-move
+  mkdir /tmp-copy-move/Beds
+  mv /tmp-copy-move/Compost.md \
+     /tmp-copy-move/Beds/Compost.md
+  python3 scripts/check_vault.py /tmp-copy-move
+      -> t04-move-survival.txt
+      (exit 1: 1 broken, the path
+      link; wikilinks survive)
+
+  grep -rn '#crop' vault --include='*.md'
+  grep -rlin 'compost' vault --include='*.md'
+      -> t05-tags-and-text.txt
+
+  python3 scripts/read_properties.py vault
+      -> t06-properties-and-config.txt
+
+App layer (scratch folder, throwaway
+HOME, virtual display):
+
+  curl -LO <official AppImage URL>
+  ./Obsidian-1.14.5.AppImage --appimage-extract
+  Xvfb :99 -screen 0 1280x900x24 &
+  HOME=<scratch>/home DISPLAY=:99 \
+    ./squashfs-root/obsidian \
+    --no-sandbox --disable-gpu
+      then, with the mouse driven by
+      xdotool and the screen read
+      from screenshots: launcher ->
+      "Open folder as vault" -> the
+      vault copy; open Home; open
+      Tomatoes; open the graph;
+      close the app.
+  diff -r --exclude=.obsidian \
+    <shipped vault> <app-opened copy>
+      (no differences: the app
+      changed no note)
+      -> t07-appimage-run.txt

@@ -1,0 +1,17 @@
+$ python3 scripts/read_properties.py vault
+== properties (YAML front matter) ==
+Seed Inventory.md: {'type': 'inventory', 'updated': datetime.date(2026, 4, 2), 'place': 'the seed tin, kitchen shelf'}
+Tomatoes.md: {'type': 'crop', 'status': 'growing', 'sown': datetime.date(2026, 3, 14), 'bed': 'north'}
+Templates/Crop Record.md: {'type': 'crop', 'status': 'planned', 'sown': None, 'bed': None}
+
+== .obsidian settings (JSON) ==
+app.json: a JSON object with 0 keys: 
+appearance.json: a JSON object with 0 keys: 
+core-plugins.json: a JSON object with 30 keys: file-explorer, global-search, switcher, graph, backlink, canvas
+graph.json: a JSON object with 20 keys: collapse-filter, search, showTags, showAttachments, hideUnresolved, showOrphans
+workspace.json: a JSON object with 6 keys: main, left, right, left-ribbon, active, lastOpenFiles
+$ python3 scripts/check_vault.py vault   (again, with .obsidian present)
+vault: vault
+notes: 9  links checked: 26
+all links resolve
+exit code: 0

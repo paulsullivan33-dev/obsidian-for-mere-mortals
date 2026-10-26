@@ -1,0 +1,27 @@
+# Experiment: rename a note by hand, outside Obsidian
+
+$ mv 'rename-test/Tomatoes.md' 'rename-test/Tomato Varieties.md'
+
+$ python3 scripts/check_vault.py ~/workspace/obsidian-scratch/rename-test
+vault: /home/hatch/workspace/obsidian-scratch/rename-test
+notes: 9  links checked: 26
+BROKEN: 6
+  Compost.md: [[Tomatoes]] - no note of that name
+  Daily Notes/2026-04-02.md: [[Tomatoes]] - no note of that name
+  Garden Map.md: [[Tomatoes]] - no note of that name
+  Home.md: [[Tomatoes]] - no note of that name
+  Seed Inventory.md: (Tomatoes.md) - no file at that path
+  Watering Schedule.md: [[Tomatoes]] - no note of that name
+exit code: 1
+
+$ grep -rn '\[\[Tomatoes\]\]' ~/workspace/obsidian-scratch/rename-test --include='*.md'
+/home/hatch/workspace/obsidian-scratch/rename-test/Home.md:13:- [[Tomatoes]] — this year's plants,
+/home/hatch/workspace/obsidian-scratch/rename-test/Watering Schedule.md:9:The [[Tomatoes]] sit in the north bed,
+/home/hatch/workspace/obsidian-scratch/rename-test/Daily Notes/2026-04-02.md:3:Planted out the [[Tomatoes]] at last.
+/home/hatch/workspace/obsidian-scratch/rename-test/Garden Map.md:13:[[Tomatoes]] for what is planted.
+/home/hatch/workspace/obsidian-scratch/rename-test/Compost.md:8:[[Tomatoes]] in May and the beans in
+
+# The wikilinks still say [[Tomatoes]]. Renaming the file
+# did not rename the words inside the other notes, so
+# every link by that name is now dangling. A Markdown
+# link that used the file's path broke in the same way.

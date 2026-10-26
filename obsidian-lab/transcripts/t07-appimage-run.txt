@@ -1,0 +1,91 @@
+The app itself, run for real in this sandbox
+=============================================
+
+Obsidian 1.14.5, the official Linux
+AppImage from the project's releases
+page (139,238,201 bytes), downloaded
+into a scratch folder, extracted with
+--appimage-extract (the sandbox has no
+FUSE), and launched on a virtual X
+display (Xvfb, 1280x900) with
+--no-sandbox --disable-gpu and a
+throwaway HOME, so nothing touched a
+real user's configuration.
+
+What happened, step by step:
+
+* The app opened on its launcher,
+  showing "Version 1.14.5" and three
+  doors: Create new vault, Open folder
+  as vault, Open vault from Obsidian
+  Sync. (Screenshot kept by the lab;
+  this file is the written record.)
+* The lab chose "Open folder as vault"
+  and pointed it at a COPY of this
+  guide's vault (the copy lived in the
+  scratch folder as app-vault).
+* Obsidian opened the folder as a
+  vault named after the folder. Its
+  file explorer listed every lab file,
+  unchanged and unrenamed: Attachments,
+  Daily Notes, Templates, Compost,
+  Garden Map, Home, Seed Inventory,
+  Tomatoes, Watering Schedule.
+* Opening Home.md rendered the note
+  with its wikilinks shown as links
+  and the Markdown link shown as a
+  link too. The status bar read
+  "2 backlinks, 132 words".
+* Opening Tomatoes.md rendered a
+  Properties panel at the top: type
+  crop, status growing, sown shown as
+  a date (03/14/2026), bed north - the
+  YAML front matter from transcript
+  t06, understood as data. The tags
+  #crop and #summer showed as tags.
+  The status bar read "6 backlinks,
+  4 properties" - and 6 is exactly
+  the number of links to Tomatoes
+  the filesystem checker counts in
+  transcript t01 (and breaks in t03).
+* The graph view drew all nine notes
+  as nodes, edges matching the links
+  the checker counted.
+* The app wrote a .obsidian folder
+  into the vault copy: app.json,
+  appearance.json, core-plugins.json,
+  and workspace.json at first; a
+  graph.json appeared after the graph
+  view was opened. Those files were
+  copied into this guide's vault
+  unchanged (they contain no paths
+  from the scratch machine), which is
+  why transcript t06 can parse them.
+* After the app was closed, a diff of
+  the vault copy against this guide's
+  vault showed the notes byte for
+  byte identical: opening a vault
+  changed no note. The only addition
+  was .obsidian itself.
+
+Two sandbox quirks, recorded so nobody
+mistakes them for the app's behaviour:
+
+* Its startup update check failed with
+  ERR_CERT_AUTHORITY_INVALID both
+  against GitHub and obsidian.md. That
+  is this build machine's intercepted
+  network (the same proxy that serves
+  its package installs), not a fault
+  in the app or the vault.
+* Harmless dconf warnings on the
+  virtual display, and one ignored
+  ENOENT for a per-vault cache file
+  under its own config folder.
+
+Not attempted: signing in, Obsidian
+Sync, Publish, and community plugins
+(the app was never given an account
+or a network it could use). Those are
+documented-only in this guide, and
+criteria.md says so.

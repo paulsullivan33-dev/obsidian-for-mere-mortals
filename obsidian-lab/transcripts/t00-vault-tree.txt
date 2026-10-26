@@ -1,0 +1,33 @@
+$ find vault -type f | sort
+vault/.obsidian/app.json
+vault/.obsidian/appearance.json
+vault/.obsidian/core-plugins.json
+vault/.obsidian/graph.json
+vault/.obsidian/workspace.json
+vault/Attachments/garden-plan.png
+vault/Compost.md
+vault/Daily Notes/2026-04-02.md
+vault/Daily Notes/2026-04-03.md
+vault/Garden Map.md
+vault/Home.md
+vault/Seed Inventory.md
+vault/Templates/Crop Record.md
+vault/Tomatoes.md
+vault/Watering Schedule.md
+
+$ find vault -type f -exec du -b {} + | sort -k2
+2	vault/.obsidian/app.json
+2	vault/.obsidian/appearance.json
+666	vault/.obsidian/core-plugins.json
+494	vault/.obsidian/graph.json
+4886	vault/.obsidian/workspace.json
+746	vault/Attachments/garden-plan.png
+279	vault/Compost.md
+249	vault/Daily Notes/2026-04-02.md
+144	vault/Daily Notes/2026-04-03.md
+441	vault/Garden Map.md
+780	vault/Home.md
+548	vault/Seed Inventory.md
+156	vault/Templates/Crop Record.md
+518	vault/Tomatoes.md
+463	vault/Watering Schedule.md

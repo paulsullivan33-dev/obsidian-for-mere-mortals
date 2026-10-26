@@ -1,0 +1,21 @@
+# A tag in Obsidian is just text with a # in front of
+# it. No Obsidian needed to find them all:
+
+$ grep -rn '#crop' vault --include='*.md'
+vault/Tomatoes.md:13:stayed warm. #crop #summer
+
+$ grep -rln 'compost' vault --include='*.md'  (every note that mentions compost, any tool can do this)
+vault/Home.md
+vault/Tomatoes.md
+vault/Daily Notes/2026-04-02.md
+vault/Garden Map.md
+vault/Compost.md
+vault/Templates/Crop Record.md
+
+# The attachment the Garden Map note embeds is a file
+# on disk, like everything else:
+
+$ ls -l vault/Attachments/ && grep -n 'garden-plan' 'vault/Garden Map.md'
+total 4
+-rw-rw---- 1 root root 746 Oct 26 03:48 garden-plan.png
+7:![[garden-plan.png]]

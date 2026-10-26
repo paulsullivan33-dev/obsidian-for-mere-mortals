@@ -1,0 +1,120 @@
+The lab — one fictional vault, one real app, nobody's real notes
+====================================================================
+
+The lab worked on two layers, both on
+the build machine (an Ubuntu 24.04
+sandbox, 2 CPUs, 7.7 GB RAM):
+
+  * The file layer: a gardener's
+    notebook vault written by hand as
+    plain files (obsidian-lab/vault/):
+    nine Markdown notes, 26 links in
+    both styles, one PNG drawn by a
+    script. Checked with two small
+    Python scripts
+    (obsidian-lab/scripts/): a link
+    checker that applies the two link
+    styles' rules from the files
+    alone, and a reader that parses
+    properties with a standard YAML
+    library and the app's settings
+    with a standard JSON library.
+  * The app layer: Obsidian 1.14.5,
+    the official Linux AppImage
+    (139,238,201 bytes), extracted and
+    run on a virtual X display (Xvfb)
+    with a throwaway HOME, opening a
+    COPY of the lab vault through
+    "Open folder as vault". No account
+    was created; nothing was bought,
+    signed into, or synced.
+
+What the lab ran, in
+obsidian-lab/transcripts/:
+
+  * t00 the vault's full tree: nine
+    notes, one picture, and (after
+    the app layer ran) the five
+    .obsidian files the app wrote.
+  * t01 the link checker on the
+    untouched vault: 9 notes, 26
+    links, all resolve, exit 0.
+  * t03 the rename experiment, on a
+    scratch copy: Tomatoes.md renamed
+    by hand -> 6 links broken (five
+    [[Tomatoes]] wikilinks, one
+    Markdown link by path).
+  * t04 the move experiment, on a
+    scratch copy: Compost.md moved
+    into Beds/ -> exactly 1 link
+    broken (the path-based Markdown
+    link in Home.md); every wikilink
+    survived.
+  * t05 tags and mentions found with
+    grep; the embedded picture shown
+    as a file on disk.
+  * t06 properties parsed as YAML
+    (sown arrives as a real date) and
+    .obsidian parsed as JSON:
+    core-plugins.json accounts for
+    all thirty core plugins (21 on,
+    9 off, sync and bases among the
+    on). The link checker still passes
+    with .obsidian present.
+  * t07 the app run, written up: the
+    launcher at version 1.14.5; the
+    vault opened; the explorer's
+    listing; Home.md rendered with
+    "2 backlinks"; Tomatoes.md with
+    its properties panel and
+    "6 backlinks, 4 properties" —
+    the 6 matching t01's count; the
+    graph drawing all nine notes;
+    .obsidian written by the app and
+    copied back into this vault
+    unchanged; a closing diff proving
+    the app changed no note.
+
+The sandbox's rules, discovered by
+running into them:
+
+  * The AppImage cannot run in place
+    (no FUSE in the sandbox), so it
+    was extracted with
+    --appimage-extract and the
+    extracted program run directly.
+    On a normal desktop the AppImage
+    simply runs; the extraction is a
+    sandbox workaround, and chapter 3
+    says the AppImage is the download,
+    not the extracting.
+  * The app's startup update check
+    failed with
+    ERR_CERT_AUTHORITY_INVALID: the
+    build machine's network is
+    intercepted by a proxy that
+    serves its packages. That is the
+    sandbox's network, not the app's
+    behaviour, and t07 records it so
+    nobody cites it as either.
+  * The vault in this repository
+    carries the .obsidian folder the
+    real app wrote into the lab's
+    copy, carried across unchanged
+    (it contains no paths from the
+    scratch machine — verified).
+    A reader who opens the shipped
+    vault gets the app's own defaults
+    as the app itself wrote them.
+
+Documented only (no account, no
+purchase, no second machine): Obsidian
+Sync, Publish, Catalyst and the
+commercial licence; community
+plugins (none installed — see
+criteria.md for why that is the
+chapter, not a gap); Dataview's query
+language; Bases beyond its verified
+presence; the mobile apps; git-based
+vault sync; and the neighbours in
+chapter 16.

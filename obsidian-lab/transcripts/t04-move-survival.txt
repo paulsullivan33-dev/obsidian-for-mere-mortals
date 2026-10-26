@@ -1,0 +1,17 @@
+# Experiment: move a note into a subfolder by hand
+
+$ mkdir move-test/Beds
+$ mv move-test/Compost.md move-test/Beds/Compost.md
+
+$ python3 scripts/check_vault.py ~/workspace/obsidian-scratch/move-test
+vault: /home/hatch/workspace/obsidian-scratch/move-test
+notes: 9  links checked: 26
+BROKEN: 1
+  Home.md: (Compost.md) - no file at that path
+exit code: 1
+
+# Only ONE link broke: the Markdown link in Home.md,
+# which points at the path Compost.md. Every wikilink
+# [[Compost]] still resolves, because a wikilink looks
+# for a note of that NAME anywhere in the vault, and
+# Compost.md still exists - it just lives in Beds/ now.
